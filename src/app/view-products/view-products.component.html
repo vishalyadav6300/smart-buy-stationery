@@ -1,0 +1,19 @@
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 w-75 mx-auto">
+    <div class="col" *ngFor="let product of products">
+        <div class="card shadow h-100">
+            <div class="card-body">
+                <img src={{product.productImage}} class="w-100" height="70%" alt="...">
+                <h5 class="card-title  text-capitalize " style="color: #69063F;">{{product.productname}}</h5>
+                <p class="card-text">{{product.description}}</p>
+                <h6>Price : {{product.price}}</h6>
+                <button class="cart-button-add" *ngIf="currentUser!=='admin' "  (click)="onProductSelect(product)">
+                    <i class="fas fa-plus"></i>Add to cart
+                </button>
+                <button class="cart-button-delete btn btn-danger" *ngIf="currentUser=='admin' ">
+                    <i class="far fa-trash-alt"></i>Delete
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>

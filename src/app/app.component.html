@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-sm">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <h1 class="display-6 text-center text-dark bold">SmartBuyStationery</h1>
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item" *ngIf="!us.userLoginStatus">
+          <a class="nav-link bg-dark rounded ps-5 pe-5 mt-2 me-5 text-white" routerLink="home" routerLinkActive="active" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Home</a>
+        </li>
+        <li class="nav-item" *ngIf="!us.userLoginStatus">
+          <a class="nav-link bg-dark rounded ps-5 pe-5 mt-2 me-5 text-white" routerLink="register" routerLinkActive="active" routerLinkActive="active" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Register</a>
+        </li>
+        <li class="nav-item" *ngIf="!us.userLoginStatus">
+          <a class="nav-link bg-dark rounded ps-5 pe-5 mt-2 me-5 text-white" routerLink="login" routerLinkActive="active" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Login</a>
+        </li>
+        <li class="nav-item"  *ngIf="us.userLoginStatus">
+          <a class="nav-link bg-dark rounded ps-5 pe-5 mt-2 me-5 text-white" routerLink="login" routerLinkActive="active" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show"  (click)=userLogout()>Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
