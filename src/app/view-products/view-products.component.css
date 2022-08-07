@@ -1,0 +1,17 @@
+.cart-button-add{
+    background-color: #B00B69;
+    color:white;
+    padding:5px 8px;
+    border:none;
+    float: right;
+    border-radius: 3px;
+}
+
+.cart-button-delete{
+    background-color: #b61515;
+    color:white;
+    padding:5px 8px;
+    border:none;
+    float: right;
+    border-radius: 3px;
+}

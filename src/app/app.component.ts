@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserService } from './user.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'SmartBuyStationary';
+
+  // inject userservice obj
+  constructor(public us:UserService){}
+
+  userLogout(){
+    localStorage.clear();
+    this.us.userLoginStatus=false;
+  }
 }

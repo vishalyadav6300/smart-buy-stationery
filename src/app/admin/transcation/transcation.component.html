@@ -1,0 +1,26 @@
+<div class="container">
+    <div>
+        <table class="table text-center mx-auto mt-5">
+            <thead>
+                <th>Username</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Token</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let transaction of transactions;let ind=index">
+                    <td>{{transaction.username}}</td>
+                    <td>{{transaction.price}}</td>
+                    <td>{{transaction.status}}</td>
+                    <td>{{transaction.token}}</td>
+                    <td><button class="btn btn-danger" (click)="OnClicked1(ind);">
+                        <i class="far fa-octagon-check"></i> Accept
+                    </button></td>
+                    <td><button class="btn btn-danger" (click)="OnClicked2(ind);">
+                        <i class="far fa-trash-alt"></i> Decline
+                    </button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+<h4 class="text-end text-dark">Welcome, <span style="color:#000407">{{userObj.username}} <img
+            src={{userObj.profileImage}} width="60px" alt="">
+        <h6>{{userObj.email}}</h6>
+    </span></h4>
+
+<ul class="nav nav-tabs nav-justified ">
+    <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" routerLink="view-products">
+            <i class="far fa-eye text-warning"></i> View products
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" routerLink="view-cart">
+            <i class="fas fa-cart-arrow-down" style="color: #ec2399;"></i>
+            Cart <span class="badge bg-dark text-white ms-2">{{count}}</span>
+        </a>
+    </li>
+
+</ul>
+
+
+<div class="container mt-5">
+    <router-outlet></router-outlet>
+</div>
