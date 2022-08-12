@@ -85,7 +85,7 @@ userApi.post("/insertBill",expressErrorHandler(async(req,res,next)=>{
     };
     details['token']=rand();
     await transactionObj.insertOne(details);
-    res.send({message:"sent"});
+    res.send({message:"sent",token: details['token']});
 
 }))
 

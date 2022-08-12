@@ -62,7 +62,12 @@ export class UsercartComponent implements OnInit {
     let v={username:username,price:this.value,status:"on progress",purchased:this.products};
     this.userService.transactions(v).subscribe(res=>{
       if(res["message"]=="sent")
-      alert("Successfully completed");
+      {
+        let token=document.getElementById("token")
+        token.style.visibility="visible"
+        token.innerText="Token : "+res["token"]
+      }
+      
       else
       alert("Error");
     })    
