@@ -69,10 +69,11 @@ export class UsercartComponent implements OnInit {
     for(let i=0;i<this.products.length;i++){
       this.products["quantity"]=this.count[i];
     }
-    let v={username:username,price:this.value,status:"on progress",purchased:this.products};
-    this.userService.sendPurchase(v).subscribe(res=>{
+    // let v=
+    this.userService.sendPurchase(this.products).subscribe(res=>{
       alert(res["message"])
     })
+    // console.log(this.products)
   }
   sendToTransaction(){
     let username=localStorage.getItem("username");

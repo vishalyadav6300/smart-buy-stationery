@@ -49,14 +49,15 @@ productApi.post("/sendPurchasedItems", expressErrorHandler(async (req, res, next
 
     let purchasedCollectionObject = req.app.get("purchasedCollectionObject")
     let newProducts = req.body;
-    console.log(newProducts)
-    for (const prodObj of newProducts) {
-        let wa = await purchasedCollectionObject.find({ prodname: prodObj.prodname }).toArray()
+    // console.log(newProducts)
+    for (const prodObj in newProducts) {
+        // console.log(newProducts[prodObj].productname)
+        let wa = await purchasedCollectionObject.find({ productname: newProducts[prodObj].productname }).toArray()
         if (wa.length) { 
-            await purchasedCollectionObject.updateOne({prodname: prodObj.prodname}, {$set:{quantity:prodObj.quantity+wa[0].quantity}})
+            await purchasedCollectionObject.updateOne({productname: newProducts[prodObj].productname}, {$set:{quantity:newProducts[prodObj].quantity+wa[0].quantity}})
         }
         else {
-             await purchasedCollectionObject.insert(prodObj)
+             await purchasedCollectionObject.insert(newProducts[prodObj])
         }
     }
    
