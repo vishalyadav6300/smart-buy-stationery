@@ -39,12 +39,14 @@ mc.connect(databaseUrl, { useNewUrlParser: true, useUnifiedTopology: true }, (er
         let productCollectionObject = databaseObj.collection("productcollection")
         let userCartCollectionObject = databaseObj.collection("usercartcollection")
         let transcationCollectionObject=databaseObj.collection("paybillcollection")
+        let purchasedCollectionObject = databaseObj.collection('purchasedItems')
 
         app.set("userCollectionObj", userCollectionObj)
         app.set("adminCollection", adminCollection)
         app.set("productCollectionObject", productCollectionObject)
         app.set("userCartCollectionObject", userCartCollectionObject)
-        app.set("transcationCollectionObject",transcationCollectionObject)
+        app.set("transcationCollectionObject", transcationCollectionObject)
+        app.set("purchasedCollectionObject",purchasedCollectionObject)
 
         console.log("connected to database")
 
