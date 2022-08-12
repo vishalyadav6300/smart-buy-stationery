@@ -64,4 +64,8 @@ export class UserService {
     return this.hc.post('/user/insertBill',details);
   }
   
+  sendPurchase(details):Observable<any>{
+    return this.hc.post('/product/sendPurchasedItems',details);
+  }
+
 }

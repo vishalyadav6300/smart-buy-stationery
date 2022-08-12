@@ -12,6 +12,7 @@ export class UsercartComponent implements OnInit {
   userCartObj;
   products=[];
   value=0;
+  count=[];
 
   constructor(private userService:UserService,private rc:Router) { }
 
@@ -23,7 +24,11 @@ export class UsercartComponent implements OnInit {
           alert("User cart is empty")
         }
         else{
-            this.products=res["products"]          
+            this.products=res["products"]   
+            for(let i=0;i<this.products.length;i++){
+              this.count.push(1);
+              
+            }
         }
       },
       err=>{
@@ -58,6 +63,17 @@ export class UsercartComponent implements OnInit {
       this.value += this.products[x]["price"];
     }
   }
+
+  sendToPurchase(){
+    let username=localStorage.getItem("username");
+    for(let i=0;i<this.products.length;i++){
+      this.products["quantity"]=this.count[i];
+    }
+    let v={username:username,price:this.value,status:"on progress",purchased:this.products};
+    this.userService.sendPurchase(v).subscribe(res=>{
+      alert(res["message"])
+    })
+  }
   sendToTransaction(){
     let username=localStorage.getItem("username");
     let v={username:username,price:this.value,status:"on progress",purchased:this.products};
@@ -71,7 +87,18 @@ export class UsercartComponent implements OnInit {
       
       else
       alert("Error");
-    })    
+    })   
+    
+    this.sendToPurchase()
+
   }
+  
+  increment(ind) {
+    this.count[ind]++;
+
+ }
+ decrement(ind) {
+    this.count[ind]--;
+ }
 
 }

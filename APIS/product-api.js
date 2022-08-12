@@ -49,6 +49,7 @@ productApi.post("/sendPurchasedItems", expressErrorHandler(async (req, res, next
 
     let purchasedCollectionObject = req.app.get("purchasedCollectionObject")
     let newProducts = req.body;
+    console.log(newProducts)
     for (const prodObj of newProducts) {
         let wa = await purchasedCollectionObject.find({ prodname: prodObj.prodname }).toArray()
         if (wa.length) { 

@@ -75,7 +75,6 @@ userApi.post("/createuser", multerObj.single('photo'), expressErrorHandler(async
     }
 }))
 
-
 userApi.post("/insertBill",expressErrorHandler(async(req,res,next)=>{
 
     let details=req.body;
