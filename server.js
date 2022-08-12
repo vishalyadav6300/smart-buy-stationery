@@ -5,7 +5,7 @@ const path = require("path")
 require("dotenv").config()
 
 //connect angular app with express server
-app.use(exp.static(path.join(__dirname, './dist/MEAN-APP/')))
+app.use(exp.static(path.join(__dirname, './dist/SMARTBUYSTATIONARY/')))
 
 //import APIS
 const userApi = require("./APIS/user-api")
