@@ -45,5 +45,28 @@ productApi.get("/getproducts", expressErrorHandler(async (req, res, next) => {
 }))
 
 
+productApi.post("/sendPurchasedItems", expressErrorHandler(async (req, res, next) => {
+
+    let purchasedCollectionObject = req.app.get("purchasedCollectionObject")
+
+    let products = await purchasedCollectionObject.find().toArray()
+
+    let newProducts = req.body;
+
+    for (const prodObj of newProducts) {
+        const search = products.find(element => {
+        if (element.prodname === prodObj.prodname) {
+            return true;
+        }
+        return false;
+        });
+console.log(search)
+   search[]
+    }
+    await purchasedCollectionObject.(newProducts)
+    res.send({ message: newProducts })
+
+}))
+
 
 module.exports = productApi;

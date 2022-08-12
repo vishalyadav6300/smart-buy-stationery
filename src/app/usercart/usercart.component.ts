@@ -52,9 +52,10 @@ export class UsercartComponent implements OnInit {
       console.log(err);
     });
   }
-  getTotal(){
+  getTotal() {
+    this.value=0
     for(let x in this.products){
-      this.value+=this.products[x]["price"];
+      this.value += this.products[x]["price"];
     }
   }
   sendToTransaction(){
