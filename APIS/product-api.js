@@ -71,5 +71,17 @@ productApi.get("/getPurchasedItems", expressErrorHandler(async (req, res, next) 
 
 }))
 
+productApi.get("/recommendItems", expressErrorHandler(async (req, res, next) => {
+
+    let purchasedCollectionObject = req.app.get("purchasedCollectionObject")
+    let productitems = await purchasedCollectionObject.find().toArray()
+    for (const prodObj of productitems) {
+        prodObj['totalAmount']= prodObj['price']*prodObj['quantity']
+    }
+    let amountSort = productitems.sort((a, b) => b.totalAmount - a.totalAmount)
+    let quantitySort = productitems.sort((a, b) => b.quantity - a.quantity)
+    res.send({ amount: amountSort, quantity: quantitySort })
+}))
+
 
 module.exports = productApi;
