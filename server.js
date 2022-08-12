@@ -6,7 +6,7 @@ const path = require("path")
 
 //connect angular app with express server
 app.use(exp.static(path.join(__dirname, './dist/SMARTBUYSTATIONARY/')))
-
+//vikram
 //import APIS
 const userApi = require("./APIS/user-api")
 const adminApi = require('./APIS/admin-api')
