@@ -63,5 +63,13 @@ productApi.post("/sendPurchasedItems", expressErrorHandler(async (req, res, next
 
 }))
 
+productApi.get("/getPurchasedItems", expressErrorHandler(async (req, res, next) => {
+
+    let purchasedCollectionObject = req.app.get("purchasedCollectionObject")
+    let productitems = await purchasedCollectionObject.find().toArray()
+    res.send({ items: productitems })
+
+}))
+
 
 module.exports = productApi;
