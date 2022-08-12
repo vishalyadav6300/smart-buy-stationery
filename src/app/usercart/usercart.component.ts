@@ -17,7 +17,7 @@ export class UsercartComponent implements OnInit {
   constructor(private userService:UserService,private rc:Router) { }
 
   ngOnInit(): void {
-   
+    
     this.userService.dataObservable.subscribe(
       res=>{
         if(res["message"]==='Cart-empty'){
@@ -29,6 +29,7 @@ export class UsercartComponent implements OnInit {
               this.count.push(1);
               
             }
+            console.log(this.products)
         }
       },
       err=>{
@@ -37,6 +38,9 @@ export class UsercartComponent implements OnInit {
       }
     )
   }
+
+  
+
   OnClicked(ind){
 
     let username=localStorage.getItem("username");
@@ -58,9 +62,12 @@ export class UsercartComponent implements OnInit {
     });
   }
   getTotal() {
+    
     this.value=0
     for(let x in this.products){
-      this.value += this.products[x]["price"];
+      // console.log(x)
+      this.value += (this.products[x]["price"]*this.count[x]);
+      // console.log(this.products[x]["quantity"])
     }
   }
 

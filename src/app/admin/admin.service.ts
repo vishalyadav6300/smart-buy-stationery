@@ -28,4 +28,9 @@ export class AdminService {
   updateTransaction(obj):Observable<any>{
     return this.hc.put('/admin/updateTrans',obj);
   }
+
+  deleteProduct(product):Observable<any>{
+    // console.log(product)
+    return this.hc.delete(`/admin/delete-product/${product}`);
+  }
 }

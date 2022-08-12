@@ -61,5 +61,13 @@ adminApi.put('/updateTrans',expressErrorHandler(async (req,res)=>{
     res.send({message:"Successfully Updated!!!"});
 }))
 
+adminApi.delete('/delete-product/:product',expressErrorHandler(async (req,res)=>{
+    let obj=req.params.product;
+    // console.log(obj);
+    let productCollectionObject=req.app.get("productCollectionObject");
+    await productCollectionObject.deleteOne({"productname":obj});
+    res.send({message:"Successfully Deleted!!!"});
+}))
+
 
 module.exports = adminApi;

@@ -60,7 +60,7 @@ productApi.post("/sendPurchasedItems", expressErrorHandler(async (req, res, next
              await purchasedCollectionObject.insert(newProducts[prodObj])
         }
     }
-   
+
     res.send({ message: "Successful" })
 
 }))

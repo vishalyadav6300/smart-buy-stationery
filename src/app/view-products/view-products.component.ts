@@ -48,4 +48,29 @@ export class ViewProductsComponent implements OnInit {
 
   }
 
+  onProductDelete(product){
+    this.adminService.deleteProduct(product.productname).subscribe(res=>{
+      // alert(res['message'])
+      if(res['message']=="Successfully Deleted!!!"){
+        alert(res['message'])
+        this.adminService.getProducts().subscribe(
+          res=>{
+            this.products=res.message;
+          },
+          err=>{
+            console.log(err)
+          }
+        )
+      }
+        
+    else{
+      alert("else")
+    }
+    this.userService.updateDataObservable(res['message'])
+    
+    },err=>{
+      console.log(err);
+    });
+  }
+
 }

@@ -47,6 +47,7 @@ export class UserService {
 
   }
 
+
   deleteProductFromCart(details):Observable<any>{
     return this.hc.delete(`/user/delete-from-cart/${details}`);
   }

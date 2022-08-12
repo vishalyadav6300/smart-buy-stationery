@@ -3,14 +3,16 @@ import { RouterModule, Routes } from '@angular/router';
 import { ViewProductsComponent } from '../view-products/view-products.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { AdminComponent } from './admin.component';
-import { SummaryComponent } from './summary/summary.component';
+import { RecommendationComponent } from './recommendation/recommendation.component';
 import { TranscationComponent } from './transcation/transcation.component';
+import { VisualizationComponent } from './visualization/visualization.component';
 
 const routes: Routes = [{ path: '', component: AdminComponent ,children:[
   {path:"add-product",component:AddProductComponent},
   {path:"view-products",component:ViewProductsComponent},
   {path:"transcations",component:TranscationComponent},
-  {path:"summary",component:SummaryComponent},
+  {path:"visualization",component:VisualizationComponent},
+  {path:"recommendation",component:RecommendationComponent},
   {path:'',redirectTo:"add-product",pathMatch:"full"}
 ]}];
 
