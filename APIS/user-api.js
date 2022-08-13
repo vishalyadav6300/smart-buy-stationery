@@ -253,6 +253,16 @@ userApi.delete("/delete-from-cart/:id",expressErrorHandler(async(req,res,next)=>
 //     res.send({ message: "This is protected data" })
 // })
 
+//delete cart items
+userApi.delete("/deleteUserCart/:username", expressErrorHandler(async (req, res) => {
+    let userCollectionObj = req.app.get("userCartCollectionObject")
+    //get username from url
+    let un = req.params.username;
+    await userCollectionObj.deleteOne({ username: un })
+    console.log(un)
+    res.send({ message: "user cart removed" })
+    
+}))
 
 
 //export

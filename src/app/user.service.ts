@@ -68,5 +68,8 @@ export class UserService {
   sendPurchase(details):Observable<any>{
     return this.hc.post('/product/sendPurchasedItems',details);
   }
+  deleteUserCart(username): Observable<any> {
+    return this.hc.delete(`/user/deleteUserCart/${username}`);
+  }
 
 }

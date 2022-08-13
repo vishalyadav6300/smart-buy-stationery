@@ -62,13 +62,9 @@ export class UsercartComponent implements OnInit {
       this.products[i]["quantity"]=this.count[i];
     }
     this.value = 0
-    console.log(this.value)
     for (let x in this.products) {
-      console.log(this.products[x])
       this.value += (this.products[x]["price"]*this.count[x]);
     }
-    console.log(this.value)
-    
   }
 
   sendToTransaction(){
@@ -90,13 +86,20 @@ export class UsercartComponent implements OnInit {
 
   }
 
-  sendToPurchase(){
+  sendToPurchase() {
+    let username = localStorage.getItem("username");
+    console.log(username)
     for(let i=0;i<this.products.length;i++){
       this.products[i]["quantity"]=this.count[i];
     }
     this.userService.sendPurchase(this.products).subscribe(res=>{
       alert(res["message"])
     })
+    this.userService.deleteUserCart(username).subscribe(res => {
+      this.products = [];
+      this.userService.updateDataObservable(this.products)
+    })
+    
     this.sendToTransaction()
   }
   
