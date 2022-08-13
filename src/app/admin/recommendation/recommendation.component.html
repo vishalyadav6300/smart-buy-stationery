@@ -1,1 +1,31 @@
-<p>recommendation works!</p>
+<div class="container">
+<ul class="nav nav-pills nav-fill mt-5 w-100 mx-auto">
+    <li class="nav-item">
+      <a (click)="getAmountData()" class="nav-link" >Amount</a>
+    </li>
+    <li class="nav-item">
+      <a (click)="getQuantityData()"  class="nav-link" >Quantity</a>
+    </li>
+</ul>
+    <div>
+        <table class="table text-center mx-auto mt-5">
+            <thead>
+                <th>Product Name</th>
+                <th>Model</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total Amount</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let dataObj of data;let ind=index">
+                    <td>{{dataObj.productname}}</td>
+                    <td>{{dataObj.model}}</td>
+                    <td>{{dataObj.price}}</td>
+                    <td>{{dataObj.quantity}}</td>
+                    <td>{{dataObj.totalAmount}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
