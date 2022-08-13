@@ -1,0 +1,22 @@
+/* .nav-pills > li > a{
+    border: medium none;
+    color:black;
+  }
+  .nav-pills > li > a.active{
+    background-color: 	black !important;
+      border: medium none;
+      border-radius: 10px;
+      color:#fafafa;
+      font-weight: 300;
+      max-width: 250px;
+      margin: auto;
+  } */
+.ButtonState{
+  
+  display:none
+
+}
+.Button{padding:3px; margin:4px; background:rgb(93, 91, 91); border:1px solid rgb(128, 31, 145); cursor:pointer;
+color: white;
+}
+.ButtonState:checked + .Button{background:rgb(23, 23, 23);}

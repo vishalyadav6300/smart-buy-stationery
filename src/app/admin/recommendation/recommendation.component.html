@@ -1,1 +1,42 @@
-<p>recommendation works!</p>
+<div class="container">
+
+
+
+<ul class="nav nav-pills nav-fill mt-5 w-100 mx-auto">
+    <li class="nav-item m-2">
+          <!-- <input type="radio" name="Button" class="btn btn-secondary ButtonState " checked id="Button1" value="1"/> -->
+            <b >Sort By :</b>
+    </li>
+    <li class="nav-item m-2">
+      <input type="radio" name="Button" class="ButtonState" id="Button2" (click)="getAmountData()" value="2"/>
+      <label class="btn w-100 m-3 Button" for="Button2">Amount</label>
+    </li>
+    <li class="nav-item m-2">
+      <input type="radio" name="Button" class="ButtonState" id="Button3" (click)="getQuantityData()" value="3"/>
+      <label class="btn w-100 m-3 Button" for="Button3">Quantity</label>
+    </li>
+</ul>
+    <div>
+        <table class="table text-center mx-auto mt-5">
+            <thead>
+                <th>Product Name</th>
+                <th>Model</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total Amount</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let dataObj of data;let ind=index">
+                    <td>{{dataObj.productname}}</td>
+                    <td>{{dataObj.model}}</td>
+                    <td>{{dataObj.price}}</td>
+                    <td>{{dataObj.quantity}}</td>
+                    <td>{{dataObj.totalAmount}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
