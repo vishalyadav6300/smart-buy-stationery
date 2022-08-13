@@ -59,12 +59,15 @@ export class UsercartComponent implements OnInit {
   }
   getTotal() {
     for(let i=0;i<this.products.length;i++){
-      this.products["quantity"]=this.count[i];
+      this.products[i]["quantity"]=this.count[i];
     }
-    this.value=0
+    this.value = 0
+    console.log(this.value)
     for (let x in this.products) {
+      console.log(this.products[x])
       this.value += (this.products[x]["price"]*this.count[x]);
     }
+    console.log(this.value)
     
   }
 
