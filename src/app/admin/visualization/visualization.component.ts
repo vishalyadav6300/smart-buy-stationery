@@ -32,6 +32,10 @@ export class VisualizationComponent implements OnInit {
   pricelabelbottom6 = [];
   statuslabel = [];
   statusdata = [];
+  productUsersData = [];
+  productLabel = [];
+  productData = [];
+
   
 
     
@@ -87,6 +91,16 @@ export class VisualizationComponent implements OnInit {
       }
     })
     
+     this.as.getProductUsers().subscribe(res => {
+      if (res['message'] == 'sent') {
+        this.productUsersData = res['products']
+         for (let [key,val] of Object.entries(this.productUsersData)) {
+            this.productLabel.push( key)
+           this.productData.push(val)
+        }
+       console.log('gt')
+      }
+    })
 
 
 // this.as.getPurchasedItems().subscribe(res=>{
@@ -157,6 +171,7 @@ export class VisualizationComponent implements OnInit {
     this.linechartTop()
     this.linechartBottom()
     this.doughNut()
+    this.linechartUsers()
 
   }
     async piechartbottom6() {
@@ -478,6 +493,61 @@ export class VisualizationComponent implements OnInit {
         //console.log(this.quantitylabeltop6)
     
          await asyncFunction(myChart,this.statuslabel,this.statusdata)
+
+  }
+   async linechartUsers() {
+
+     Chart.register(...registerables);
+  
+        let myChart = new Chart("lineChartUsers", {
+            type: 'line',
+            data: {
+              
+                labels: [],
+                datasets: [{
+                    label: '',
+                    data: [],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        title: {
+                          display: true,
+                          text: 'Number of Users'
+                        }
+                      },
+                      x: {
+                        title: {
+                          display: true,
+                          text: 'products'
+                        }
+                      }
+              },
+              spanGaps:true
+          }
+            
+        });
+        //console.log(this.quantitylabeltop6)
+    
+         await asyncFunction(myChart,this.productLabel,this.productData)
 
   }
 }

@@ -36,6 +36,10 @@ export class AdminService {
   getStatusCount():Observable<any>{
        return this.hc.get('/admin/getStatusCount');
   }
+  getProductUsers():Observable<any>{
+       return this.hc.get('/admin/getProductUsers');
+  }
+
 
 
   getRecommendedData(): Observable<any> {
