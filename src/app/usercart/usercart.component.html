@@ -14,9 +14,10 @@
                         <img src={{product.productImage}} width="50px" alt="">
                     </td>
                     <td>
-                        <button (click)="increment(ind)">+</button>
-                        {{count[ind]}}
                         <button (click)="decrement(ind)">-</button>
+                        {{count[ind]}}
+                        
+                        <button (click)="increment(ind)">+</button>
                     </td>
                     <td><button class="btn btn-danger" (click)="OnClicked(ind);">
                         <i class="far fa-trash-alt"></i>Delete

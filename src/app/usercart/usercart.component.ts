@@ -109,6 +109,7 @@ export class UsercartComponent implements OnInit {
 
  }
  decrement(ind) {
+  if(this.count[ind]>1)
     this.count[ind]--;
  }
 
