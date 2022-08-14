@@ -143,23 +143,7 @@ export class VisualizationComponent implements OnInit {
                 ],
                 borderWidth: 1
             }]
-        },
-        options: {
-            scales: {
-                y: {
-                    title: {
-                      display: true,
-                      text: 'quantity'
-                    }
-                  },
-                  x: {
-                    title: {
-                      display: true,
-                      text: 'products'
-                    }
-                  }
-            }
-      }
+        }
         
     });
 
@@ -205,22 +189,7 @@ export class VisualizationComponent implements OnInit {
                     borderWidth: 1
                 }]
             },
-            options: {
-                scales: {
-                    y: {
-                        title: {
-                          display: true,
-                          text: 'quantity'
-                        }
-                      },
-                      x: {
-                        title: {
-                          display: true,
-                          text: 'products'
-                        }
-                      }
-                }
-          }
+            
             
         });
         //console.log(this.quantitylabeltop6)
@@ -240,7 +209,7 @@ export class VisualizationComponent implements OnInit {
               
                 labels: [],
                 datasets: [{
-                    label: 'Bar Chart Showing Top 6 Total Sold Prices of Items',
+                    label: '',
                     data: [],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
@@ -275,7 +244,7 @@ export class VisualizationComponent implements OnInit {
                           text: 'products'
                         }
                       }
-                }
+              }
           }
             
         });
@@ -294,7 +263,7 @@ export class VisualizationComponent implements OnInit {
               
                 labels: [],
                 datasets: [{
-                    label: 'Bar Chart Showing Least 6 Total Sold Prices of Items',
+                    label: '',
                     data: [],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
