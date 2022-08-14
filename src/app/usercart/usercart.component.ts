@@ -12,18 +12,23 @@ export class UsercartComponent implements OnInit {
   userCartObj;
   products=[];
   value=0;
+  count=[];
 
   constructor(private userService:UserService,private rc:Router) { }
 
   ngOnInit(): void {
-   
+    
     this.userService.dataObservable.subscribe(
       res=>{
         if(res["message"]==='Cart-empty'){
           alert("User cart is empty")
         }
         else{
-            this.products=res["products"]          
+            this.products=res["products"]   
+            for(let i=0;i<this.products.length;i++){
+              this.count.push(1);
+              
+            }
         }
       },
       err=>{
@@ -32,10 +37,12 @@ export class UsercartComponent implements OnInit {
       }
     )
   }
+
+  
+
   OnClicked(ind){
 
     let username=localStorage.getItem("username");
-    //console.log(this.products[ind]);
     let details=username+'-'+ind;
     this.userService.deleteProductFromCart(details).subscribe(res=>{
       if(res["message"]==='Cart-empty'){
@@ -44,20 +51,22 @@ export class UsercartComponent implements OnInit {
       else{
         this.products=res["data"]  
         alert(res["message"])
-        this.userService.updateDataObservable(res["data"])
-
-          // alert("Product deleted")        
+        this.userService.updateDataObservable(res["data"])     
       }
     },err=>{
       console.log(err);
     });
   }
   getTotal() {
-    this.value=0
-    for(let x in this.products){
-      this.value += this.products[x]["price"];
+    for(let i=0;i<this.products.length;i++){
+      this.products[i]["quantity"]=this.count[i];
+    }
+    this.value = 0
+    for (let x in this.products) {
+      this.value += (this.products[x]["price"]*this.count[x]);
     }
   }
+
   sendToTransaction(){
     let username=localStorage.getItem("username");
     let v={username:username,price:this.value,status:"on progress",purchased:this.products};
@@ -71,7 +80,37 @@ export class UsercartComponent implements OnInit {
       
       else
       alert("Error");
-    })    
+    })   
+    
+    // this.sendToPurchase()
+
   }
+
+  sendToPurchase() {
+    let username = localStorage.getItem("username");
+    console.log(username)
+    for(let i=0;i<this.products.length;i++){
+      this.products[i]["quantity"]=this.count[i];
+    }
+    this.userService.sendPurchase(this.products).subscribe(res=>{
+      alert(res["message"])
+    })
+    this.userService.deleteUserCart(username).subscribe(res => {
+      this.products = [];
+      this.userService.updateDataObservable(this.products)
+    })
+    
+    this.sendToTransaction()
+  }
+  
+  
+  increment(ind) {
+    this.count[ind]++;
+
+ }
+ decrement(ind) {
+  if(this.count[ind]>1)
+    this.count[ind]--;
+ }
 
 }

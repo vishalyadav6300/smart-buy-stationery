@@ -49,16 +49,18 @@ productApi.post("/sendPurchasedItems", expressErrorHandler(async (req, res, next
 
     let purchasedCollectionObject = req.app.get("purchasedCollectionObject")
     let newProducts = req.body;
-    for (const prodObj of newProducts) {
-        let wa = await purchasedCollectionObject.find({ prodname: prodObj.prodname }).toArray()
+    // console.log(newProducts)
+    for (const prodObj in newProducts) {
+        // console.log(newProducts[prodObj].productname)
+        let wa = await purchasedCollectionObject.find({ productname: newProducts[prodObj].productname }).toArray()
         if (wa.length) { 
-            await purchasedCollectionObject.updateOne({prodname: prodObj.prodname}, {$set:{quantity:prodObj.quantity+wa[0].quantity}})
+            await purchasedCollectionObject.updateOne({productname: newProducts[prodObj].productname}, {$set:{quantity:newProducts[prodObj].quantity+wa[0].quantity}})
         }
         else {
-             await purchasedCollectionObject.insert(prodObj)
+             await purchasedCollectionObject.insert(newProducts[prodObj])
         }
     }
-   
+
     res.send({ message: "Successful" })
 
 }))
@@ -67,7 +69,8 @@ productApi.get("/getPurchasedItems", expressErrorHandler(async (req, res, next) 
 
     let purchasedCollectionObject = req.app.get("purchasedCollectionObject")
     let productitems = await purchasedCollectionObject.find().toArray()
-    res.send({ items: productitems })
+    console.log(productitems);
+    res.send({ items: productitems ,message:'successful'})
 
 }))
 
@@ -75,12 +78,24 @@ productApi.get("/recommendItems", expressErrorHandler(async (req, res, next) => 
 
     let purchasedCollectionObject = req.app.get("purchasedCollectionObject")
     let productitems = await purchasedCollectionObject.find().toArray()
+    let dup = await purchasedCollectionObject.find().toArray()
+    let pricesArr=await purchasedCollectionObject.find().toArray()
     for (const prodObj of productitems) {
         prodObj['totalAmount']= prodObj['price']*prodObj['quantity']
     }
+    for (const prodObj of dup) {
+        prodObj['totalAmount']= prodObj['price']*prodObj['quantity']
+    }
+    for (const prodObj of pricesArr) {
+        prodObj['totalAmount']= prodObj['price']*prodObj['quantity']
+    }
     let amountSort = productitems.sort((a, b) => b.totalAmount - a.totalAmount)
-    let quantitySort = productitems.sort((a, b) => b.quantity - a.quantity)
-    res.send({ amount: amountSort, quantity: quantitySort })
+
+    let quantitySort = dup.sort((a, b) => b.quantity - a.quantity)
+
+    let pricesSort = pricesArr.sort((a,b)=>b.price -a.price)
+
+    res.send({ amount: amountSort, quantity: quantitySort, price: pricesSort,message:'successful' })
 }))
 
 

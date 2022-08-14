@@ -46,7 +46,6 @@ adminApi.post("/addproduct", multerCloudinary.single('photo'), expressErrorHandl
 adminApi.get("/transactiondetails",expressErrorHandler(async (req,res,next)=>{
     let transactionObj=req.app.get("transcationCollectionObject");
     let details=await transactionObj.find().toArray();
-    // console.log(details);
     if(details===null)
     res.send({message:"Not data"});
     else
@@ -54,12 +53,52 @@ adminApi.get("/transactiondetails",expressErrorHandler(async (req,res,next)=>{
 }))
 
 adminApi.put('/updateTrans',expressErrorHandler(async (req,res)=>{
-    let obj=req.body;
-    console.log(obj);
-    let transactionObj=req.app.get("transcationCollectionObject");
-    await transactionObj.updateOne({"_id":obj._id},{$set:{status:obj['status']}});
+    let obj = req.body;
+    let transactionObj = req.app.get("transcationCollectionObject");
+
+    await transactionObj.updateOne({"username":obj.username},{$set:{status:obj['status']}});
     res.send({message:"Successfully Updated!!!"});
 }))
 
+adminApi.delete('/delete-product/:product',expressErrorHandler(async (req,res)=>{
+    let obj=req.params.product;
+    let productCollectionObject=req.app.get("productCollectionObject");
+    await productCollectionObject.deleteOne({"productname":obj});
+    res.send({message:"Successfully Deleted!!!"});
+}))
+
+adminApi.get("/getStatusCount",expressErrorHandler(async (req,res,next)=>{
+    let transactionObj=req.app.get("transcationCollectionObject");
+    let details=await transactionObj.find().toArray();
+    let  onprogress= 0, Delivered = 0, Rejected = 0;
+    for (let x in details) {
+        if (details[x]['status'] === 'on progress') { onprogress++; }
+        else if (details[x]['status'] === 'Delivered') { Delivered++; }
+        else { Rejected++; }
+    }
+    let statuscount = { 'OnProgress': onprogress, 'Delivered':Delivered,'Rejected': Rejected }
+    
+    if(details===null)
+    res.send({message:"No data"});
+    else
+    res.send({message:"successful",data:details,statusCount:statuscount});
+}))
+
+adminApi.get("/getProductUsers",expressErrorHandler(async (req,res,next)=>{
+    let productsObj=req.app.get("productCollectionObject");
+    let products = await productsObj.find().toArray();
+    productObjects = {};
+    for (const x in products) {
+        productObjects[products[x]['productname']]=0
+    }
+    let purchasedCollectionObject = req.app.get("transcationCollectionObject")
+    let purchased = await purchasedCollectionObject.find().toArray();
+    for (const x in purchased) {
+        for (const k in purchased[x]['purchased']) {
+            productObjects[purchased[x]['purchased'][k]['productname']] += 1
+        }
+    }
+    res.send({ products: productObjects,message:'sent' })
+}))
 
 module.exports = adminApi;

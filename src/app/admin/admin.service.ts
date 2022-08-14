@@ -28,4 +28,25 @@ export class AdminService {
   updateTransaction(obj):Observable<any>{
     return this.hc.put('/admin/updateTrans',obj);
   }
+
+  deleteProduct(product):Observable<any>{
+    // console.log(product)
+    return this.hc.delete(`/admin/delete-product/${product}`);
+  }
+  getStatusCount():Observable<any>{
+       return this.hc.get('/admin/getStatusCount');
+  }
+  getProductUsers():Observable<any>{
+       return this.hc.get('/admin/getProductUsers');
+  }
+
+
+
+  getRecommendedData(): Observable<any> {
+    return this.hc.get('/product/recommendItems');
+  }
+
+  getPurchasedItems(): Observable<any> {
+    return this.hc.get('/product/getPurchasedItems');
+  }
 }

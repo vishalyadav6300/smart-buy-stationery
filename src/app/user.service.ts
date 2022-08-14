@@ -47,6 +47,7 @@ export class UserService {
 
   }
 
+
   deleteProductFromCart(details):Observable<any>{
     return this.hc.delete(`/user/delete-from-cart/${details}`);
   }
@@ -64,4 +65,11 @@ export class UserService {
     return this.hc.post('/user/insertBill',details);
   }
   
+  sendPurchase(details):Observable<any>{
+    return this.hc.post('/product/sendPurchasedItems',details);
+  }
+  deleteUserCart(username): Observable<any> {
+    return this.hc.delete(`/user/deleteUserCart/${username}`);
+  }
+
 }
