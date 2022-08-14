@@ -16,6 +16,7 @@ export class VisualizationComponent implements OnInit {
     amountData = [];
     quantityData = [];
     data = [];
+    visdata=[];
   labelsData = [];
     
   constructor(private as:AdminService) { }
@@ -30,7 +31,10 @@ export class VisualizationComponent implements OnInit {
           //console.log(this.amountData[0]['quantity'])
           for (let x = 0; x < Math.min(this.amountData.length, 6);x++) {
             this.labelsData.push( this.amountData[x]['productname'])
+            this.visdata.push(this.amountData[x]['quantity'])
+            
           }
+          console.log(this.visdata);
           
         }
       },error => {
@@ -61,7 +65,7 @@ error=>{
             labels: [],
             datasets: [{
                 label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
+                data: [],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -101,18 +105,21 @@ error=>{
     });
     console.log(this.labelsData)
 
-     await asyncFunction(myChart,this.labelsData)
+     await asyncFunction(myChart,this.labelsData,this.visdata)
 
   }
   
 
 }
 
-async function asyncFunction(my,la){
+async function asyncFunction(my,la,va){
   const list=[]
  setTimeout(function(){
    for (const x in la) {
     my.data.labels.push(la[x])
+    my.data.datasets[0].data.push(va[x])
+
+
    }
    my.update()
  }, 1000); // 2 seconds timeout
