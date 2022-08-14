@@ -37,7 +37,16 @@ export class TranscationComponent implements OnInit {
 
   OnClicked2(ind){
       if(window.confirm("Are you sure??"))
-      {this.transactions[ind]['status']="Rejected";}
+      {
+        this.transactions[ind]['status'] = "Rejected";
+         this.as.updateTransaction(this.transactions[ind]).subscribe(res=>{
+          alert("Updated successfully!!");
+        },
+        err=>{
+          console.log("error");
+        }
+        )
+      }
    }
 
 }

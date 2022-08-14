@@ -46,7 +46,6 @@ adminApi.post("/addproduct", multerCloudinary.single('photo'), expressErrorHandl
 adminApi.get("/transactiondetails",expressErrorHandler(async (req,res,next)=>{
     let transactionObj=req.app.get("transcationCollectionObject");
     let details=await transactionObj.find().toArray();
-    // console.log(details);
     if(details===null)
     res.send({message:"Not data"});
     else
@@ -54,16 +53,15 @@ adminApi.get("/transactiondetails",expressErrorHandler(async (req,res,next)=>{
 }))
 
 adminApi.put('/updateTrans',expressErrorHandler(async (req,res)=>{
-    let obj=req.body;
-    console.log(obj);
-    let transactionObj=req.app.get("transcationCollectionObject");
-    await transactionObj.updateOne({"_id":obj._id},{$set:{status:obj['status']}});
+    let obj = req.body;
+    let transactionObj = req.app.get("transcationCollectionObject");
+
+    await transactionObj.updateOne({"username":obj.username},{$set:{status:obj['status']}});
     res.send({message:"Successfully Updated!!!"});
 }))
 
 adminApi.delete('/delete-product/:product',expressErrorHandler(async (req,res)=>{
     let obj=req.params.product;
-    // console.log(obj);
     let productCollectionObject=req.app.get("productCollectionObject");
     await productCollectionObject.deleteOne({"productname":obj});
     res.send({message:"Successfully Deleted!!!"});
