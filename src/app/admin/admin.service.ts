@@ -33,6 +33,10 @@ export class AdminService {
     // console.log(product)
     return this.hc.delete(`/admin/delete-product/${product}`);
   }
+  getStatusCount():Observable<any>{
+       return this.hc.get('/admin/getStatusCount');
+  }
+
 
   getRecommendedData(): Observable<any> {
     return this.hc.get('/product/recommendItems');

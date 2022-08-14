@@ -69,5 +69,22 @@ adminApi.delete('/delete-product/:product',expressErrorHandler(async (req,res)=>
     res.send({message:"Successfully Deleted!!!"});
 }))
 
+adminApi.get("/getStatusCount",expressErrorHandler(async (req,res,next)=>{
+    let transactionObj=req.app.get("transcationCollectionObject");
+    let details=await transactionObj.find().toArray();
+    let  onprogress= 0, Delivered = 0, Rejected = 0;
+    for (let x in details) {
+        if (details[x]['status'] === 'on progress') { onprogress++; }
+        else if (details[x]['status'] === 'Delivered') { Delivered++; }
+        else { Rejected++; }
+    }
+    let statuscount = { 'OnProgress': onprogress, 'Delivered':Delivered,'Rejected': Rejected }
+    
+    if(details===null)
+    res.send({message:"No data"});
+    else
+    res.send({message:"successful",data:details,statusCount:statuscount});
+}))
+
 
 module.exports = adminApi;

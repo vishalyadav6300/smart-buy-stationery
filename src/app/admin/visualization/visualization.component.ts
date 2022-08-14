@@ -16,6 +16,7 @@ export class VisualizationComponent implements OnInit {
     amountData = [];
   quantityData = [];
   priceData = [];
+  statusData = [];
     data = [];
     quantitytop6=[];
     quantitybottom6=[];
@@ -29,6 +30,8 @@ export class VisualizationComponent implements OnInit {
     pricebottom6=[];
     pricelabeltop6 = [];
   pricelabelbottom6 = [];
+  statuslabel = [];
+  statusdata = [];
   
 
     
@@ -69,22 +72,35 @@ export class VisualizationComponent implements OnInit {
       },error => {
         console.log(error);
       }
-      )
+    )
+    this.as.getStatusCount().subscribe(res => {
+      if (res['message'] == 'successful') {
+        this.statusData = res['statusCount']
+        console.log(this.statusData)
+         for (let [key,val] of Object.entries(this.statusData)) {
+            this.statuslabel.push( key)
+           this.statusdata.push(val)
+           console.log(key,val)
+        }
+        console.log(this.statuslabel,this.statusdata)
+
+      }
+    })
     
 
 
-this.as.getPurchasedItems().subscribe(res=>{
-    if(res["message"]=='successful')
-    {
-        this.data=res['items']
-        //console.log(this.data);
-    }
-},
-error=>{
-    console.log(error);
-}
+// this.as.getPurchasedItems().subscribe(res=>{
+//     if(res["message"]=='successful')
+//     {
+//         this.data=res['items']
+//         //console.log(this.data);
+//     }
+// },
+// error=>{
+//     console.log(error);
+// }
 
-)
+// )
     Chart.register(...registerables);
   
     let myChart = new Chart("myChart", {
@@ -136,10 +152,11 @@ error=>{
      await asyncFunction(myChart,this.quantitylabeltop6,this.quantitytop6)
 
     this.piechartbottom6()
-    this.barcharTop()
-    this.barcharBottom()
-    this.linecharTop()
-    this.linecharBottom()
+    this.barchartTop()
+    this.barchartBottom()
+    this.linechartTop()
+    this.linechartBottom()
+    this.doughNut()
 
   }
     async piechartbottom6() {
@@ -198,7 +215,7 @@ error=>{
 
             }
   
-  async barcharTop() {
+  async barchartTop() {
 
      Chart.register(...registerables);
   
@@ -252,7 +269,7 @@ error=>{
          await asyncFunction(myChart,this.amountlabeltop6,this.amounttop6)
 
   }
-  async barcharBottom() {
+  async barchartBottom() {
 
      Chart.register(...registerables);
   
@@ -306,7 +323,7 @@ error=>{
          await asyncFunction(myChart,this.amountlabelbottom6,this.amountbottom6)
 
   }
-  async linecharTop() {
+  async linechartTop() {
 
      Chart.register(...registerables);
   
@@ -360,7 +377,7 @@ error=>{
          await asyncFunction(myChart,this.pricelabeltop6,this.pricetop6)
 
   }
-  async linecharBottom() {
+  async linechartBottom() {
 
      Chart.register(...registerables);
   
@@ -412,6 +429,55 @@ error=>{
         //console.log(this.quantitylabeltop6)
     
          await asyncFunction(myChart,this.pricelabelbottom6,this.pricebottom6)
+
+  }
+  async doughNut() {
+
+     Chart.register(...registerables);
+  
+        let myChart = new Chart("doughnutChart", {
+            type: 'doughnut',
+            data: {
+              
+                labels: [],
+                datasets: [{
+                    label: '',
+                    data: [],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                  
+                      x: {
+                        title: {
+                          display: true,
+                          text: 'status'
+                        }
+                      }
+                }
+          }
+            
+        });
+        //console.log(this.quantitylabeltop6)
+    
+         await asyncFunction(myChart,this.statuslabel,this.statusdata)
 
   }
 }
