@@ -84,5 +84,21 @@ adminApi.get("/getStatusCount",expressErrorHandler(async (req,res,next)=>{
     res.send({message:"successful",data:details,statusCount:statuscount});
 }))
 
+adminApi.get("/getProductUsers",expressErrorHandler(async (req,res,next)=>{
+    let productsObj=req.app.get("productCollectionObject");
+    let products = await productsObj.find().toArray();
+    productObjects = {};
+    for (const x in products) {
+        productObjects[products[x]['productname']]=0
+    }
+    let purchasedCollectionObject = req.app.get("transcationCollectionObject")
+    let purchased = await purchasedCollectionObject.find().toArray();
+    for (const x in purchased) {
+        for (const k in purchased[x]['purchased']) {
+            productObjects[purchased[x]['purchased'][k]['productname']] += 1
+        }
+    }
+    res.send({ products: productObjects,message:'sent' })
+}))
 
 module.exports = adminApi;
