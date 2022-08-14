@@ -37,7 +37,9 @@ export class ViewProductsComponent implements OnInit {
 
    this.userService.sendProductToUserCart(newUserProductObj).subscribe(
      res=>{
+      if(res['message']!= 'Object already exist in cart')
        alert(res['message'])
+       if(res['message']!= 'Object already exist in cart')
        this.userService.updateDataObservable(res.latestCartObj)
      },
      err=>{
