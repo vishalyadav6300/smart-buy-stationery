@@ -14,7 +14,8 @@ import { AdminService } from '../admin.service';
 
 export class VisualizationComponent implements OnInit {
     amountData = [];
-    quantityData = [];
+  quantityData = [];
+  priceData = [];
     data = [];
     quantitytop6=[];
     quantitybottom6=[];
@@ -24,6 +25,10 @@ export class VisualizationComponent implements OnInit {
     amountbottom6=[];
     amountlabeltop6 = [];
   amountlabelbottom6 = [];
+  pricetop6=[];
+    pricebottom6=[];
+    pricelabeltop6 = [];
+  pricelabelbottom6 = [];
   
 
     
@@ -35,8 +40,8 @@ export class VisualizationComponent implements OnInit {
         if (res['message'] == 'successful') {
           this.amountData = res['amount']
           this.quantityData = res['quantity']
-          //this.data=this.amountData
-          //console.log(this.amountData[0]['quantity'])
+          this.priceData=res['price']
+
           for (let x = 0; x < Math.min(this.quantityData.length, 6);x++) {
             this.quantitylabeltop6.push( this.quantityData[x]['productname'])
             this.quantitytop6.push(this.quantityData[x]['quantity'])
@@ -49,6 +54,13 @@ export class VisualizationComponent implements OnInit {
             this.amounttop6.push(this.amountData[x]['totalAmount'])
             this.amountlabelbottom6.push(this.amountData[this.amountData.length-1-x]['productname'])
             this.amountbottom6.push(this.amountData[this.amountData.length-1-x]['totalAmount'])
+            
+          }
+          for (let x = 0; x < Math.min(this.priceData.length, 6);x++) {
+            this.pricelabeltop6.push( this.priceData[x]['productname'])
+            this.pricetop6.push(this.priceData[x]['price'])
+            this.pricelabelbottom6.push(this.priceData[this.priceData.length-1-x]['productname'])
+            this.pricebottom6.push(this.priceData[this.priceData.length-1-x]['price'])
             
           }
          
@@ -126,6 +138,8 @@ error=>{
     this.piechartbottom6()
     this.barcharTop()
     this.barcharBottom()
+    this.linecharTop()
+    this.linecharBottom()
 
   }
     async piechartbottom6() {
@@ -290,6 +304,114 @@ error=>{
         //console.log(this.quantitylabeltop6)
     
          await asyncFunction(myChart,this.amountlabelbottom6,this.amountbottom6)
+
+  }
+  async linecharTop() {
+
+     Chart.register(...registerables);
+  
+        let myChart = new Chart("lineChartTop", {
+            type: 'line',
+            data: {
+              
+                labels: [],
+                datasets: [{
+                    label: '',
+                    data: [],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        title: {
+                          display: true,
+                          text: 'Total Sold Price'
+                        }
+                      },
+                      x: {
+                        title: {
+                          display: true,
+                          text: 'products'
+                        }
+                      }
+                }
+          }
+            
+        });
+        //console.log(this.quantitylabeltop6)
+    
+         await asyncFunction(myChart,this.pricelabeltop6,this.pricetop6)
+
+  }
+  async linecharBottom() {
+
+     Chart.register(...registerables);
+  
+        let myChart = new Chart("lineChartBottom", {
+            type: 'line',
+            data: {
+              
+                labels: [],
+                datasets: [{
+                    label: '',
+                    data: [],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        title: {
+                          display: true,
+                          text: 'Total Sold Price'
+                        }
+                      },
+                      x: {
+                        title: {
+                          display: true,
+                          text: 'products'
+                        }
+                      }
+                }
+          }
+            
+        });
+        //console.log(this.quantitylabeltop6)
+    
+         await asyncFunction(myChart,this.pricelabelbottom6,this.pricebottom6)
 
   }
 }
