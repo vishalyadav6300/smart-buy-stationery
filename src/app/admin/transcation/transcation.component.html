@@ -13,11 +13,12 @@
                     <td>{{transaction.price}}</td>
                     <td>{{transaction.status}}</td>
                     <td>{{transaction.token}}</td>
-                    <td><button class="btn btn-danger" (click)="OnClicked1(ind);">
-                        <i class="far fa-octagon-check"></i> Accept
-                    </button></td>
+                    
                     <td><button class="btn btn-danger" (click)="OnClicked2(ind);">
                         <i class="far fa-trash-alt"></i> Decline
+                    </button></td>
+                    <td><button class="btn btn-success" (click)="OnClicked1(ind);">
+                        <i class="far fa-octagon-check"></i> Accept
                     </button></td>
                 </tr>
             </tbody>
