@@ -18,8 +18,8 @@
         <label for="dob">Date of birth</label>
     </div>
 
-
-    <input type="file" name="photo"  class="form-control mb-3" ngModel  (change)="selectFile($event)">
+        <label for="photo">Profile Image</label>
+    <input type="file" name="photo"  class="form-control mb-3" ngModel  (change)="selectFile($event)" placeholder="Profile Image">
 
     <div class="text-center">
         <button class="btn btn-dark ps-3 pe-3" type="submit">Signup</button>
