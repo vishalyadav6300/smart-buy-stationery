@@ -18,8 +18,13 @@ export class VisualizationComponent implements OnInit {
     data = [];
     quantitytop6=[];
     quantitybottom6=[];
-  quantitylabeltop6 = [];
-  quantitylabelbottom6=[];
+    quantitylabeltop6 = [];
+  quantitylabelbottom6 = [];
+  amounttop6=[];
+    amountbottom6=[];
+    amountlabeltop6 = [];
+  amountlabelbottom6 = [];
+  
 
     
   constructor(private as:AdminService) { }
@@ -32,11 +37,18 @@ export class VisualizationComponent implements OnInit {
           this.quantityData = res['quantity']
           //this.data=this.amountData
           //console.log(this.amountData[0]['quantity'])
+          for (let x = 0; x < Math.min(this.quantityData.length, 6);x++) {
+            this.quantitylabeltop6.push( this.quantityData[x]['productname'])
+            this.quantitytop6.push(this.quantityData[x]['quantity'])
+            this.quantitylabelbottom6.push(this.quantityData[this.quantityData.length-1-x]['productname'])
+            this.quantitybottom6.push(this.quantityData[this.quantityData.length-1-x]['quantity'])
+            
+          }
           for (let x = 0; x < Math.min(this.amountData.length, 6);x++) {
-            this.quantitylabeltop6.push( this.amountData[x]['productname'])
-            this.quantitytop6.push(this.amountData[x]['quantity'])
-            this.quantitylabelbottom6.push(this.amountData[this.amountData.length-1-x]['productname'])
-            this.quantitybottom6.push(this.amountData[this.amountData.length-1-x]['quantity'])
+            this.amountlabeltop6.push( this.amountData[x]['productname'])
+            this.amounttop6.push(this.amountData[x]['totalAmount'])
+            this.amountlabelbottom6.push(this.amountData[this.amountData.length-1-x]['productname'])
+            this.amountbottom6.push(this.amountData[this.amountData.length-1-x]['totalAmount'])
             
           }
          
@@ -108,11 +120,12 @@ error=>{
       }
         
     });
-    console.log(this.quantitylabeltop6)
 
      await asyncFunction(myChart,this.quantitylabeltop6,this.quantitytop6)
 
-      this.piechartbottom6()
+    this.piechartbottom6()
+    this.barcharTop()
+    this.barcharBottom()
 
   }
     async piechartbottom6() {
@@ -171,7 +184,114 @@ error=>{
 
             }
   
+  async barcharTop() {
 
+     Chart.register(...registerables);
+  
+        let myChart = new Chart("barChartTop", {
+            type: 'bar',
+            data: {
+              
+                labels: [],
+                datasets: [{
+                    label: 'Bar Chart Showing Top 6 Total Sold Prices of Items',
+                    data: [],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        title: {
+                          display: true,
+                          text: 'Total Sold Price'
+                        }
+                      },
+                      x: {
+                        title: {
+                          display: true,
+                          text: 'products'
+                        }
+                      }
+                }
+          }
+            
+        });
+        //console.log(this.quantitylabeltop6)
+    
+         await asyncFunction(myChart,this.amountlabeltop6,this.amounttop6)
+
+  }
+  async barcharBottom() {
+
+     Chart.register(...registerables);
+  
+        let myChart = new Chart("barChartBottom", {
+            type: 'bar',
+            data: {
+              
+                labels: [],
+                datasets: [{
+                    label: 'Bar Chart Showing Least 6 Total Sold Prices of Items',
+                    data: [],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        title: {
+                          display: true,
+                          text: 'Total Sold Price'
+                        }
+                      },
+                      x: {
+                        title: {
+                          display: true,
+                          text: 'products'
+                        }
+                      }
+                }
+          }
+            
+        });
+        //console.log(this.quantitylabeltop6)
+    
+         await asyncFunction(myChart,this.amountlabelbottom6,this.amountbottom6)
+
+  }
 }
 
 async function asyncFunction(my,la,va){

@@ -9,6 +9,7 @@ import { AdminService } from '../admin.service';
 export class RecommendationComponent implements OnInit {
   amountData = [];
   quantityData = [];
+  priceData = [];
   data = [];
   constructor(private as:AdminService) { 
 
@@ -19,6 +20,7 @@ export class RecommendationComponent implements OnInit {
       if (res['message'] == 'successful') {
         this.amountData = res['amount']
         this.quantityData = res['quantity']
+        this.priceData=res['price']
         this.data=this.amountData
         console.log(this.amountData)
       }
@@ -32,6 +34,9 @@ export class RecommendationComponent implements OnInit {
   }
   getQuantityData() {
     this.data=this.quantityData
+  }
+  getPriceData() {
+    this.data=this.priceData
   }
 
 }

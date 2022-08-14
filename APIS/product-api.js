@@ -78,18 +78,24 @@ productApi.get("/recommendItems", expressErrorHandler(async (req, res, next) => 
 
     let purchasedCollectionObject = req.app.get("purchasedCollectionObject")
     let productitems = await purchasedCollectionObject.find().toArray()
-    let dup=await purchasedCollectionObject.find().toArray()
+    let dup = await purchasedCollectionObject.find().toArray()
+    let pricesArr=await purchasedCollectionObject.find().toArray()
     for (const prodObj of productitems) {
         prodObj['totalAmount']= prodObj['price']*prodObj['quantity']
     }
     for (const prodObj of dup) {
         prodObj['totalAmount']= prodObj['price']*prodObj['quantity']
     }
+    for (const prodObj of pricesArr) {
+        prodObj['totalAmount']= prodObj['price']*prodObj['quantity']
+    }
     let amountSort = productitems.sort((a, b) => b.totalAmount - a.totalAmount)
-    console.log(amountSort)
+
     let quantitySort = dup.sort((a, b) => b.quantity - a.quantity)
-    console.log(amountSort)
-    res.send({ amount: amountSort, quantity: quantitySort,message:'successful' })
+
+    let pricesSort = pricesArr.sort((a,b)=>b.price -a.price)
+
+    res.send({ amount: amountSort, quantity: quantitySort, price: pricesSort,message:'successful' })
 }))
 
 
