@@ -37,4 +37,8 @@ export class AdminService {
   getRecommendedData(): Observable<any> {
     return this.hc.get('/product/recommendItems');
   }
+
+  getPurchasedItems(): Observable<any> {
+    return this.hc.get('/product/getPurchasedItems');
+  }
 }

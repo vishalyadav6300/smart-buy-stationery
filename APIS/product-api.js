@@ -69,7 +69,8 @@ productApi.get("/getPurchasedItems", expressErrorHandler(async (req, res, next) 
 
     let purchasedCollectionObject = req.app.get("purchasedCollectionObject")
     let productitems = await purchasedCollectionObject.find().toArray()
-    res.send({ items: productitems })
+    console.log(productitems);
+    res.send({ items: productitems ,message:'successful'})
 
 }))
 

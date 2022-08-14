@@ -259,7 +259,7 @@ userApi.delete("/deleteUserCart/:username", expressErrorHandler(async (req, res)
     //get username from url
     let un = req.params.username;
     await userCollectionObj.deleteOne({ username: un })
-    console.log(un)
+  
     res.send({ message: "user cart removed" })
     
 }))
