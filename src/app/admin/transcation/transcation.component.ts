@@ -16,7 +16,8 @@ export class TranscationComponent implements OnInit {
       if(res['message']==="Not data")
       alert("No data");
       else
-      this.transactions=res['data'];
+        this.transactions = res['data'];
+      this.transactions.reverse();
       console.log(this.transactions);
     })
   }
