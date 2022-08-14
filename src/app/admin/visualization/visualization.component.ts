@@ -163,7 +163,7 @@ export class VisualizationComponent implements OnInit {
         
     });
 
-     await asyncFunction(myChart,this.quantitylabeltop6,this.quantitytop6)
+     await asyncFunction7(myChart,this.quantitylabeltop6,this.quantitytop6)
 
     this.piechartbottom6()
     this.barchartTop()
@@ -281,7 +281,7 @@ export class VisualizationComponent implements OnInit {
         });
         //console.log(this.quantitylabeltop6)
     
-         await asyncFunction(myChart,this.amountlabeltop6,this.amounttop6)
+         await asyncFunction1(myChart,this.amountlabeltop6,this.amounttop6)
 
   }
   async barchartBottom() {
@@ -335,7 +335,7 @@ export class VisualizationComponent implements OnInit {
         });
         //console.log(this.quantitylabeltop6)
     
-         await asyncFunction(myChart,this.amountlabelbottom6,this.amountbottom6)
+         await asyncFunction2(myChart,this.amountlabelbottom6,this.amountbottom6)
 
   }
   async linechartTop() {
@@ -389,7 +389,7 @@ export class VisualizationComponent implements OnInit {
         });
         //console.log(this.quantitylabeltop6)
     
-         await asyncFunction(myChart,this.pricelabeltop6,this.pricetop6)
+         await asyncFunction3(myChart,this.pricelabeltop6,this.pricetop6)
 
   }
   async linechartBottom() {
@@ -443,7 +443,7 @@ export class VisualizationComponent implements OnInit {
         });
         //console.log(this.quantitylabeltop6)
     
-         await asyncFunction(myChart,this.pricelabelbottom6,this.pricebottom6)
+         await asyncFunction4(myChart,this.pricelabelbottom6,this.pricebottom6)
 
   }
   async doughNut() {
@@ -492,7 +492,7 @@ export class VisualizationComponent implements OnInit {
         });
         //console.log(this.quantitylabeltop6)
     
-         await asyncFunction(myChart,this.statuslabel,this.statusdata)
+         await asyncFunction5(myChart,this.statuslabel,this.statusdata)
 
   }
    async linechartUsers() {
@@ -547,7 +547,7 @@ export class VisualizationComponent implements OnInit {
         });
         //console.log(this.quantitylabeltop6)
     
-         await asyncFunction(myChart,this.productLabel,this.productData)
+         await asyncFunction6(myChart,this.productLabel,this.productData)
 
   }
 }
@@ -562,8 +562,103 @@ async function asyncFunction(my,la,va){
 
    }
    my.update()
- }, 1000); // 2 seconds timeout
+ }, 1000);
 
 
 }
+async function asyncFunction1(my,la,va){
+  const list=[]
+ setTimeout(function(){
+   for (const x in la) {
+    my.data.labels.push(la[x])
+    my.data.datasets[0].data.push(va[x])
 
+
+   }
+   my.update()
+ }, 1000);
+
+
+}
+async function asyncFunction2(my,la,va){
+  const list=[]
+ setTimeout(function(){
+   for (const x in la) {
+    my.data.labels.push(la[x])
+    my.data.datasets[0].data.push(va[x])
+
+
+   }
+   my.update()
+ }, 1000);
+
+
+}
+async function asyncFunction3(my,la,va){
+  const list=[]
+ setTimeout(function(){
+   for (const x in la) {
+    my.data.labels.push(la[x])
+    my.data.datasets[0].data.push(va[x])
+
+
+   }
+   my.update()
+ }, 1000);
+
+
+}
+async function asyncFunction4(my,la,va){
+  const list=[]
+ setTimeout(function(){
+   for (const x in la) {
+    my.data.labels.push(la[x])
+    my.data.datasets[0].data.push(va[x])
+
+
+   }
+   my.update()
+ }, 1000);
+
+
+}
+async function asyncFunction5(my,la,va){
+  const list=[]
+ setTimeout(function(){
+   for (const x in la) {
+    my.data.labels.push(la[x])
+    my.data.datasets[0].data.push(va[x])
+
+
+   }
+   my.update()
+ }, 1000);
+
+
+}
+async function asyncFunction6(my,la,va){
+  const list=[]
+ setTimeout(function(){
+   for (const x in la) {
+    my.data.labels.push(la[x])
+    my.data.datasets[0].data.push(va[x])
+
+
+   }
+   my.update()
+ }, 1000);
+
+
+}
+async function asyncFunction7(my, la, va) {
+  const list = []
+  setTimeout(function () {
+    for (const x in la) {
+      my.data.labels.push(la[x])
+      my.data.datasets[0].data.push(va[x])
+
+
+    }
+    my.update()
+  }, 1000);
+}
