@@ -247,12 +247,6 @@ userApi.delete("/delete-from-cart/:id",expressErrorHandler(async(req,res,next)=>
 }))
 
 
-
-//dummy route to create protected resource
-// userApi.get("/testing", checkToken, (req, res) => {
-//     res.send({ message: "This is protected data" })
-// })
-
 //delete cart items
 userApi.delete("/deleteUserCart/:username", expressErrorHandler(async (req, res) => {
     let userCollectionObj = req.app.get("userCartCollectionObject")

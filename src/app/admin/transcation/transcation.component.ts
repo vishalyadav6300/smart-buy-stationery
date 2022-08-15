@@ -48,6 +48,19 @@ export class TranscationComponent implements OnInit {
         }
         )
       }
+  }
+  
+  OnClicked3(ind){
+
+        this.transactions[ind]['status'] = "Rejected";
+         this.as.updateTransaction(this.transactions[ind]).subscribe(res=>{
+          alert("Updated successfully!!");
+        },
+        err=>{
+          console.log("error");
+        }
+        )
+     
    }
 
 }
