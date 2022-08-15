@@ -9,6 +9,8 @@ import { AdminService } from '../admin.service';
 export class TranscationComponent implements OnInit {
 
   transactions=[];
+  products=[];
+  price=0;
   constructor(private as:AdminService) { }
 
   ngOnInit(): void {
@@ -52,15 +54,13 @@ export class TranscationComponent implements OnInit {
   
   OnClicked3(ind){
 
-        this.transactions[ind]['status'] = "Rejected";
-         this.as.updateTransaction(this.transactions[ind]).subscribe(res=>{
-          alert("Updated successfully!!");
-        },
-        err=>{
-          console.log("error");
-        }
-        )
-     
-   }
+            this.price=this.transactions[ind]['price']
+        
+            for(let x in this.transactions[ind]['purchased'])
+              this.products.push(this.transactions[ind]['purchased'][x])
 
+      
+        
+      }
+   
 }

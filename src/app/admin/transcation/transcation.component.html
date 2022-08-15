@@ -20,11 +20,53 @@
                     <td><button class="btn btn-success" (click)="OnClicked1(ind);">
                         <i class="far fa-octagon-check"></i> Accept
                     </button></td>
-                    <td><button class="btn btn-success" (click)="OnClicked3(ind);">
-                        <i class="far fa-octagon-check"></i> Accept
+                    <td><button  type="button" class="btn btn-dark ms-3 me-3 ps-3 pe-3" data-bs-toggle="modal" data-bs-target="#exampleModal"(click)="OnClicked3(ind);">
+                        <i class="far fa-octagon-check"></i> view products
                     </button></td>
                 </tr>
             </tbody>
         </table>
+    </div>
+</div>
+
+
+<div class="text-center">
+   
+    
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Products List</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <table class="table text-center mx-auto">
+                <thead>
+                    <th>Productname</th>
+                    <th>Model</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of products;">
+                        <td>{{product.productname}}</td>
+                        <td>{{product.model}}</td>
+                        <td>{{product.price}}</td>
+                        <td>{{product.quantity}}</td>
+                    </tr> 
+                    <tr><th>Total Value : {{price}}</th></tr>
+                    
+                </tbody>
+            </table>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            
+            </div>
+     
+        </div>
+        </div>
     </div>
 </div>
