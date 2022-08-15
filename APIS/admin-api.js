@@ -56,7 +56,7 @@ adminApi.put('/updateTrans',expressErrorHandler(async (req,res)=>{
     let obj = req.body;
     let transactionObj = req.app.get("transcationCollectionObject");
 
-    await transactionObj.updateOne({"username":obj.username},{$set:{status:obj['status']}});
+    await transactionObj.updateOne({"token":obj.token},{$set:{status:obj['status']}});
     res.send({message:"Successfully Updated!!!"});
 }))
 
