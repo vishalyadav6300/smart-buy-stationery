@@ -76,31 +76,33 @@ export class UsercartComponent implements OnInit {
         let token=document.getElementById("token")
         token.style.visibility="visible"
         token.innerText="Token : "+res["token"]
-      }
-      
+      }  
       else
       alert("Error");
     })   
-    
-    // this.sendToPurchase()
 
   }
 
-  sendToPurchase() {
+  async sendToPurchase() {
     let username = localStorage.getItem("username");
-    console.log(username)
     for(let i=0;i<this.products.length;i++){
       this.products[i]["quantity"]=this.count[i];
     }
-    this.userService.sendPurchase(this.products).subscribe(res=>{
-      alert(res["message"])
-    })
-    this.userService.deleteUserCart(username).subscribe(res => {
-      this.products = [];
-      this.userService.updateDataObservable(this.products)
-    })
-    
-    this.sendToTransaction()
+    await this.userService.decrementQuantity(this.products).subscribe(res=>{
+       if(res['message']==='okay'){
+        this.userService.sendPurchase(this.products).subscribe(res=>{
+          alert(res["message"])
+        })
+        this.userService.deleteUserCart(username).subscribe(res => {
+          this.products = [];
+          this.userService.updateDataObservable(this.products)
+        })
+        this.sendToTransaction()
+       }
+       else
+       alert(res['message'])
+
+    },err=>{console.log("Error",err)})
   }
   
   

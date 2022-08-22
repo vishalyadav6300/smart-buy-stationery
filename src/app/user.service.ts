@@ -71,5 +71,8 @@ export class UserService {
   deleteUserCart(username): Observable<any> {
     return this.hc.delete(`/user/deleteUserCart/${username}`);
   }
+  decrementQuantity(product):Observable<any>{
+    return this.hc.put('/product/decrement-quantity',product)
+  }
 
 }

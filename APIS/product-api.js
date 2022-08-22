@@ -98,5 +98,45 @@ productApi.get("/recommendItems", expressErrorHandler(async (req, res, next) => 
     res.send({ amount: amountSort, quantity: quantitySort, price: pricesSort,message:'successful' })
 }))
 
+productApi.put("/decrement-quantity", expressErrorHandler(async (req, res, next) => {
+    let productCollectionObject = req.app.get("productCollectionObject")
+
+    let products = await productCollectionObject.find().toArray()
+
+    let cartProducts=req.body;
+   // console.log(cartProducts);
+    let flag=0;
+    let v;
+    for(let i in cartProducts){
+        //console.log(cartProducts[i]['productname']);
+        for(let j in products){
+            if(cartProducts[i]['productname']==products[j]['productname']){
+                //console.log(products[j]['quantity']-cartProducts[i]['quantity'])
+                if((products[j]['quantity']-cartProducts[i]['quantity'])>=0){
+                    products[j]['quantity']-=cartProducts[i]['quantity'];
+                }
+                else{
+                flag=1;
+                v=cartProducts[i]['productname'];
+                break
+                }
+            }
+        }
+        if(flag)
+        break
+    }
+    if(flag)
+    res.send({message:"Insuccifent quantity of"+v});
+    else{
+      for(let i in products){
+        await productCollectionObject.updateOne({productname:products[i]['productname']},{$set:{quantity:products[i]['quantity']}});
+      }
+      res.send({message:"okay"});
+    }
+    
+
+}))
+
+
 
 module.exports = productApi;
