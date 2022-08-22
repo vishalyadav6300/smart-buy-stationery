@@ -51,6 +51,6 @@ export class AdminService {
   }
 
   sendEmail(obj):Observable<any>{
-     return this.hc.get(`/admin/send-email/${obj}`);
+     return this.hc.post('/admin/send-email',obj);
   }
 }

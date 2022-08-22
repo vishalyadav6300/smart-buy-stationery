@@ -11,11 +11,16 @@
 
             <div class="card-footer">
                 <h6>Price : {{product.price}}</h6>
-<button class="btn btn-theme float-right cart-button-add" *ngIf="currentUser!=='admin' "  (click)="onProductSelect(product)">
+<button class="btn btn-theme float-right cart-button-add" *ngIf="currentUser!=='admin'&& product.quantity!=0 "  (click)="onProductSelect(product)">
 
                     <i class="fas fa-plus"></i>Add to cart
 
                 </button>
+<p class="btn btn-theme float-right cart-button-add" *ngIf="currentUser!=='admin' && product.quantity==0" >
+
+                    Out of Stock!! Next available from tomorrow 9am
+
+</p>
                 <button class="cart-button-delete btn btn-danger" *ngIf="currentUser=='admin'" (click)="onProductDelete(product)">
                     <i class="far fa-trash-alt"></i>Delete
                 </button>

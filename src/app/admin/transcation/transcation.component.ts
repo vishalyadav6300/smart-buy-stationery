@@ -20,7 +20,6 @@ export class TranscationComponent implements OnInit {
       else
         this.transactions = res['data'];
       this.transactions.reverse();
-      console.log(this.transactions);
     })
   }
 
@@ -55,14 +54,14 @@ export class TranscationComponent implements OnInit {
   OnClicked3(ind){
 
             this.price=this.transactions[ind]['price']
-        
+            this.products=[]
             for(let x in this.transactions[ind]['purchased'])
               this.products.push(this.transactions[ind]['purchased'][x])
 
       
         
       }
-  onClicked4(ind){
+      OnClicked4(ind){
     let obj={
       username:this.transactions[ind]['username']
       ,token:this.transactions[ind]['token']

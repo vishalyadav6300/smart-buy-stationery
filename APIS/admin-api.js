@@ -102,22 +102,21 @@ adminApi.get("/getProductUsers",expressErrorHandler(async (req,res,next)=>{
     res.send({ products: productObjects,message:'sent' })
 }))
 
-adminApi.get("/send-email/:obj",expressErrorHandler(async (req,res,next)=>{
-    let obj=req.params;
-    console.log(obj);
+adminApi.post("/send-email",expressErrorHandler(async (req,res,next)=>{
+    let obj=req.body;
     let userCollectionObj=req.app.get("userCollectionObj");
-    let useremail=await userCollectionObj.findOne({username:obj.username},{email:true});
+    let userobj=await userCollectionObj.findOne({username:obj.username});
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'datasetsvnr@gmail.com',
-          pass: 'datasets'
+            user: 'viralbuddy420@gmail.com',
+            pass: 'jjgwielnjewcrmuq'
         }
       });
       
       let mailOptions = {
-        from: 'datasetsvnr@gmail.com',
-        to: useremail,
+        from: 'viralbuddy420@gmail.com',
+        to: userobj.email,
         subject: 'Now!! you can collect your items',
         text: obj.token
       };
