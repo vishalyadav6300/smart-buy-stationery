@@ -62,5 +62,14 @@ export class TranscationComponent implements OnInit {
       
         
       }
+  onClicked4(ind){
+    let obj={
+      username:this.transactions[ind]['username']
+      ,token:this.transactions[ind]['token']
+    }
+    this.as.sendEmail(obj).subscribe(res=>{
+      alert(res['message']);
+    },err=>{console.log(err)})
+  }
    
 }

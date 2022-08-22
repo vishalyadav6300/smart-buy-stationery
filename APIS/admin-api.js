@@ -2,6 +2,7 @@ const exp = require("express")
 const adminApi = exp.Router()
 const expressErrorHandler = require("express-async-handler")
 const jwt = require("jsonwebtoken")
+const nodemailer = require('nodemailer');
 const multerCloudinary = require("./middlewares/multerCloudinary")
 adminApi.use(exp.json())
 
@@ -99,6 +100,36 @@ adminApi.get("/getProductUsers",expressErrorHandler(async (req,res,next)=>{
         }
     }
     res.send({ products: productObjects,message:'sent' })
+}))
+
+adminApi.get("/send-email/:obj",expressErrorHandler(async (req,res,next)=>{
+    let obj=req.params;
+    console.log(obj);
+    let userCollectionObj=req.app.get("userCollectionObj");
+    let useremail=await userCollectionObj.findOne({username:obj.username},{email:true});
+    let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'datasetsvnr@gmail.com',
+          pass: 'datasets'
+        }
+      });
+      
+      let mailOptions = {
+        from: 'datasetsvnr@gmail.com',
+        to: useremail,
+        subject: 'Now!! you can collect your items',
+        text: obj.token
+      };
+      
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
+    res.send({message:"successfully email sent"});
 }))
 
 module.exports = adminApi;

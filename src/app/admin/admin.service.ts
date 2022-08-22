@@ -49,4 +49,8 @@ export class AdminService {
   getPurchasedItems(): Observable<any> {
     return this.hc.get('/product/getPurchasedItems');
   }
+
+  sendEmail(obj):Observable<any>{
+     return this.hc.get(`/admin/send-email/${obj}`);
+  }
 }
