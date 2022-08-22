@@ -57,7 +57,25 @@ adminApi.put('/updateTrans',expressErrorHandler(async (req,res)=>{
     let obj = req.body;
     let transactionObj = req.app.get("transcationCollectionObject");
 
-    await transactionObj.updateOne({"token":obj.token},{$set:{status:obj['status']}});
+    await transactionObj.updateOne({ "token": obj.token }, { $set: { status: obj['status'] } });
+    try {
+        if (obj["status"] == "Rejected") {
+            let productCollectionObject = req.app.get("productCollectionObject");
+            let products = await productCollectionObject.find().toArray();
+            for (const x in products) {
+                for (const y in obj["purchased"]) {
+
+                if (products[x]["productname"]==obj["purchased"][y]["productname"]){
+                    products[x]["quantity"]+=obj["purchased"][y]["quantity"];
+                await productCollectionObject.updateOne({productname:obj["purchased"][y]["productname"]},{$set:{quantity:products[x]['quantity']}})
+                }
+                }
+            }
+        }
+    }
+    catch(err) {
+        console.log(err)
+    }
     res.send({message:"Successfully Updated!!!"});
 }))
 

@@ -26,6 +26,7 @@ export class TranscationComponent implements OnInit {
   OnClicked1(ind){
       if(window.confirm("Are you sure??"))
       {
+        if(this.transactions[ind]['status']=="on progress"){
         this.transactions[ind]['status']="Delivered";
         this.as.updateTransaction(this.transactions[ind]).subscribe(res=>{
           alert("Updated successfully!!");
@@ -35,11 +36,13 @@ export class TranscationComponent implements OnInit {
         }
         )
       }
+    }
   }
 
   OnClicked2(ind){
       if(window.confirm("Are you sure??"))
       {
+        if(this.transactions[ind]['status'] == "on progress"){
         this.transactions[ind]['status'] = "Rejected";
          this.as.updateTransaction(this.transactions[ind]).subscribe(res=>{
           alert("Updated successfully!!");
@@ -49,6 +52,7 @@ export class TranscationComponent implements OnInit {
         }
         )
       }
+    }
   }
   
   OnClicked3(ind){
